@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Nathan Dalton - Official Merchandise. Blu-rays, shirts, posters, and more.">
+    <title>Merch | Nathan Dalton</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        .hero {
+            min-height: 40vh;
+        }
+
+        .hero-title {
+            font-size: clamp(2rem, 6vw, 4rem);
+        }
+
+        .merch-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .merch-item {
+            background: var(--bg-card);
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .merch-item:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            border-color: var(--accent);
+        }
+
+        .merch-image {
+            position: relative;
+            aspect-ratio: 2/3;
+            overflow: hidden;
+            background: var(--border);
+        }
+
+        .merch-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            transition: var(--transition);
+            background: var(--bg-card);
+            transform: scale(1.1);
+        }
+
+        .merch-item:hover .merch-image img {
+            transform: scale(1.3);
+        }
+
+        .merch-badge {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            padding: 0.5rem 1rem;
+            background: var(--accent);
+            color: var(--text-primary);
+            font-size: 0.75rem;
+            font-weight: 600;
+            border-radius: 20px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .merch-badge.signed {
+            background: linear-gradient(135deg, #f5c518 0%, #e5b015 100%);
+            color: #000;
+        }
+
+        .merch-info {
+            padding: 1.5rem;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .merch-title {
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            letter-spacing: 2px;
+            margin-bottom: 0.5rem;
+        }
+
+        .merch-description {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+            line-height: 1.6;
+            flex: 1;
+        }
+
+        .merch-size-selector {
+            margin-bottom: 1rem;
+        }
+
+        .merch-size-selector label {
+            display: block;
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+        }
+
+        .merch-size-select {
+            width: 100%;
+            padding: 0.75rem;
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            font-size: 0.9rem;
+            cursor: pointer;
+        }
+
+        .merch-size-select:focus {
+            outline: none;
+            border-color: var(--accent);
+        }
+
+        .merch-price {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 1rem;
+        }
+
+        .merch-button {
+            width: 100%;
+            padding: 1rem;
+            background: var(--accent);
+            color: var(--text-primary);
+            font-weight: 600;
+            font-size: 0.95rem;
+            border-radius: 4px;
+            border: none;
+            cursor: pointer;
+            transition: var(--transition);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .merch-button:hover {
+            background: var(--accent-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(229, 9, 20, 0.3);
+        }
+
+        .merh-category {
+            color: var(--accent);
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-bottom: 0.5rem;
+        }
+
+        @media (max-width: 768px) {
+            .merch-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .hero {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .merch-slideshow {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            overflow: hidden;
+            z-index: 0;
+        }
+
+        .merch-slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-size: cover;
+            background-position: center;
+            opacity: 0;
+            transform: scale(1.05);
+            transition: opacity 2s ease-in-out;
+        }
+
+        .merch-slide.active {
+            opacity: 1;
+            animation: subtleZoom 10s ease-in-out infinite;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 3;
+        }
+
+        @keyframes subtleZoom {
+            0% {
+                transform: scale(1.05);
+            }
+            50% {
+                transform: scale(1.075);
+            }
+            100% {
+                transform: scale(1.05);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-container">
+            <a href="index.html" class="logo">NATHAN DALTON</a>
+            <button class="menu-toggle" aria-label="Toggle menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <ul class="nav-links">
+                <li><a href="index.html#home">Home</a></li>
+                <li><a href="index.html#films">Films</a></li>
+                <li><a href="index.html#news">News</a></li>
+                <li><a href="index.html#contact">Contact</a></li>
+                <li><a href="merch.html" class="active">Merch</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <section class="hero">
+        <div class="hero-overlay"></div>
+        <div class="merch-slideshow" id="merch-slideshow"></div>
+        <div class="hero-content">
+            <h1 class="hero-title">MERCHANDISE</h1>
+        </div>
+    </section>
+
+    <!-- Merch Section -->
+    <section class="news">
+        <div class="container">
+            <h2 class="section-title">Haunted House of Pancakes</h2>
+
+            <div class="merch-grid">
+                <!-- Blu-ray -->
+                <div class="merch-item">
+                    <div class="merch-image">
+                        <img src="assets/images/bluray.png" alt="Haunted House of Pancakes Blu-ray">
+                    </div>
+                    <div class="merch-info">
+                        <span class="merh-category">Blu-ray</span>
+                        <h3 class="merch-title">Haunted House of Pancakes</h3>
+                        <p class="merch-description">High-definition Blu-ray of the horror-comedy feature. Includes behind-the-scenes content and director commentary.</p>
+                        <div class="merch-price">$19.99</div>
+                        <button class="merch-button" onclick="window.open('https://buy.stripe.com/test_aFa9AS4OFaQ6amjeyb93y00', '_blank')">Buy Now</button>
+                    </div>
+                </div>
+
+                <!-- Signed Blu-ray -->
+                <div class="merch-item">
+                    <div class="merch-image">
+                        <img src="assets/images/bluray.png" alt="Signed Haunted House of Pancakes Blu-ray">
+                        <span class="merch-badge signed">Signed</span>
+                    </div>
+                    <div class="merch-info">
+                        <span class="merh-category">Blu-ray</span>
+                        <h3 class="merch-title">Signed Blu-ray</h3>
+                        <p class="merch-description">Autographed Blu-ray edition. Limited quantity - signed by director Nathan Dalton.</p>
+                        <div class="merch-price">$29.99</div>
+                        <button class="merch-button" onclick="window.open('https://buy.stripe.com/test_00wdR86WN9M20LJcq393y01', '_blank')">Buy Now</button>
+                    </div>
+                </div>
+
+                <!-- Shirt -->
+                <div class="merch-item">
+                    <div class="merch-image">
+                        <img src="assets/images/hhop-shirt.jpg" alt="Haunted House of Pancakes T-Shirt">
+                    </div>
+                    <div class="merch-info">
+                        <span class="merh-category">Apparel</span>
+                        <h3 class="merch-title">HHOP T-Shirt</h3>
+                        <p class="merch-description">Official Haunted House of Pancakes t-shirt. Premium cotton, available in multiple sizes.</p>
+                        <div class="merch-size-selector">
+                            <label for="tshirt-size">Select Size:</label>
+                            <select id="tshirt-size" class="merch-size-select" onchange="updateTShirtLink()">
+                                <option value="https://buy.stripe.com/test_3cIfZggxnaQ6bqn61F93y02">XS - Extra Small</option>
+                                <option value="https://buy.stripe.com/test_cNieVcch79M28eb75J93y08">S - Small</option>
+                                <option value="https://buy.stripe.com/test_00w9AS0yp3nE3XV2Pt93y09" selected>M - Medium</option>
+                                <option value="https://buy.stripe.com/test_fZu9ASch71fwdyveyb93y0a">L - Large</option>
+                                <option value="https://buy.stripe.com/test_14A4gych72jAbqneyb93y0b">XL - Extra Large</option>
+                                <option value="https://buy.stripe.com/test_eVqcN4dlb3nE6639dR93y0c">XXL - 2X Large</option>
+                            </select>
+                        </div>
+                        <div class="merch-price">$24.99</div>
+                        <button class="merch-button" id="tshirt-button" onclick="window.open('https://buy.stripe.com/test_00w9AS0yp3nE3XV2Pt93y09', '_blank')">Buy Now</button>
+                    </div>
+                </div>
+
+                <!-- Poster -->
+                <div class="merch-item">
+                    <div class="merch-image">
+                        <img src="https://m.media-amazon.com/images/M/MV5BNTEzMTU4ZDEtZDQ2ZC00MTIyLTkyNjctOTQ4ZGU2NzY1Zjk4XkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg" alt="Haunted House of Pancakes Poster">
+                    </div>
+                    <div class="merch-info">
+                        <span class="merh-category">Poster</span>
+                        <h3 class="merch-title">Official Poster</h3>
+                        <p class="merch-description">High-quality theatrical poster. 11" x 17" standard size, perfect for framing.</p>
+                        <div class="merch-price">$14.99</div>
+                        <button class="merch-button" onclick="window.open('https://buy.stripe.com/test_bJefZga8Z4rI0LJeyb93y03', '_blank')">Buy Now</button>
+                    </div>
+                </div>
+
+                <!-- Signed Poster -->
+                <div class="merch-item">
+                    <div class="merch-image">
+                        <img src="https://m.media-amazon.com/images/M/MV5BNTEzMTU4ZDEtZDQ2ZC00MTIyLTkyNjctOTQ4ZGU2NzY1Zjk4XkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg" alt="Signed Haunted House of Pancakes Poster">
+                        <span class="merch-badge signed">Signed</span>
+                    </div>
+                    <div class="merch-info">
+                        <span class="merh-category">Poster</span>
+                        <h3 class="merch-title">Signed Poster</h3>
+                        <p class="merch-description">Autographed theatrical poster. 11" x 17" limited edition - hand-signed by Nathan Dalton.</p>
+                        <div class="merch-price">$29.99</div>
+                        <button class="merch-button" onclick="window.open('https://buy.stripe.com/test_eVqaEW4OF7DU51Z61F93y04', '_blank')">Buy Now</button>
+                    </div>
+                </div>
+            </div>
+
+            <h2 class="section-title" style="margin-top: 6rem;">Coming Soon</h2>
+            <p style="text-align: center; color: var(--text-secondary); font-size: 1.1rem; max-width: 600px; margin: 0 auto 2rem;">
+                Bad Apples merchandise coming soon! Sign up to get notified when it's available.
+            </p>
+
+            <form class="notify-form" style="max-width: 500px; margin: 0 auto;" onsubmit="event.preventDefault(); alert('Thank you! We\\'ll notify you when Bad Apples merch is available.');">
+                <input type="email" placeholder="Enter your email to get notified" required style="width: 100%; padding: 1rem; background: var(--bg-card); border: 1px solid var(--border); color: var(--text-primary); border-radius: 4px; font-size: 1rem; margin-bottom: 1rem;">
+                <button type="submit" style="width: 100%; padding: 1rem; background: var(--accent); color: var(--text-primary); font-weight: 600; border-radius: 4px; border: none; cursor: pointer; transition: var(--transition);">Notify Me</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 Nathan Dalton. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Merch slideshow initialization
+        const merchStills = [
+            'assets/images/stills/still_1.jpg',
+            'assets/images/stills/still_2.jpg',
+            'assets/images/stills/still_3.jpg',
+            'assets/images/stills/still_4.jpg',
+            'assets/images/stills/still_5.jpg',
+            'assets/images/stills/still_6.jpg',
+            'assets/images/stills/still_7.jpg',
+            'assets/images/stills/still_8.jpg',
+            'assets/images/stills/still_9.jpg',
+            'assets/images/stills/still_10.jpg',
+            'assets/images/stills/still_11.jpg',
+            'assets/images/stills/still_12.jpg',
+            'assets/images/stills/still_13.jpg',
+            'assets/images/stills/still_14.jpg',
+            'assets/images/stills/still_15.jpg',
+            'assets/images/stills/still_16.jpg',
+            'assets/images/stills/still_17.jpg',
+            'assets/images/stills/still_18.jpg',
+            'assets/images/stills/still_19.jpg',
+            'assets/images/stills/still_20.jpg'
+        ];
+
+        function initMerchSlideshow() {
+            const slideshow = document.getElementById('merch-slideshow');
+            if (!slideshow) return;
+
+            // Shuffle the stills for random order
+            const shuffled = [...merchStills].sort(() => Math.random() - 0.5);
+
+            slideshow.innerHTML = shuffled.map(url => `
+                <div class="merch-slide" style="background-image: url('${url}')"></div>
+            `).join('');
+
+            const slides = slideshow.querySelectorAll('.merch-slide');
+            let currentSlide = 0;
+
+            function nextSlide() {
+                slides[currentSlide].classList.remove('active');
+                currentSlide = (currentSlide + 1) % slides.length;
+                slides[currentSlide].classList.add('active');
+            }
+
+            slides[0]?.classList.add('active');
+            setInterval(nextSlide, 10000);
+        }
+
+        // T-Shirt size selector
+        function updateTShirtLink() {
+            const select = document.getElementById('tshirt-size');
+            const button = document.getElementById('tshirt-button');
+            if (select && button) {
+                const selectedUrl = select.value;
+                button.setAttribute('onclick', `window.open('${selectedUrl}', '_blank')`);
+            }
+        }
+
+        // Initialize on load
+        document.addEventListener('DOMContentLoaded', () => {
+            initMerchSlideshow();
+
+            // Mobile menu toggle
+            document.querySelector('.menu-toggle').addEventListener('click', () => {
+                document.querySelector('.nav-links').classList.toggle('active');
+            });
+        });
+    </script>
+</body>
+</html>

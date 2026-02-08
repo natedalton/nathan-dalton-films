@@ -1,0 +1,13 @@
+# Operating Systems
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# If using Node.js (not needed for static site but common)
+node_modules/
+package-lock.json
