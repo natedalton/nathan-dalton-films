@@ -13,9 +13,15 @@ function initHeroSlideshow() {
     // Create slideshow container
     const slideshow = document.createElement('div');
     slideshow.className = 'hero-slideshow';
-    slideshow.innerHTML = slideshowImages.map(url => `
-        <div class="slide" style="background-image: url('${url}')"></div>
-    `).join('');
+
+    // Create slides using DOM methods (XSS prevention)
+    slideshowImages.forEach(url => {
+        const slide = document.createElement('div');
+        slide.className = 'slide';
+        // Use CSS.escape to prevent XSS from URL injection
+        slide.style.backgroundImage = `url('${CSS.escape(url)}')`;
+        slideshow.appendChild(slide);
+    });
 
     // Insert slideshow at the beginning of hero
     hero.insertBefore(slideshow, hero.firstChild);
@@ -62,61 +68,132 @@ function renderFilms() {
 
     if (!filmsGrid) return;
 
-    filmsGrid.innerHTML = films.map(film => {
+    films.forEach(film => {
         const trailerId = film.trailer ? getYouTubeId(film.trailer) : null;
         const trailerThumbnail = trailerId ? getYouTubeThumbnail(trailerId) : null;
 
-        return `
-        <article class="film-card">
-            <div class="film-poster">
-                ${film.poster
-                    ? `<img src="${film.poster}" alt="${film.title} poster" loading="lazy">`
-                    : `<div class="film-poster-placeholder">${film.title.charAt(0)}</div>`
+        // Create film card using DOM methods (XSS prevention)
+        const article = document.createElement('article');
+        article.className = 'film-card';
+
+        // Poster container
+        const posterDiv = document.createElement('div');
+        posterDiv.className = 'film-poster';
+
+        if (film.poster) {
+            const img = document.createElement('img');
+            img.src = film.poster;
+            img.alt = `${film.title} poster`;
+            img.loading = 'lazy';
+            posterDiv.appendChild(img);
+        } else {
+            const placeholder = document.createElement('div');
+            placeholder.className = 'film-poster-placeholder';
+            placeholder.textContent = film.title.charAt(0);
+            posterDiv.appendChild(placeholder);
+        }
+
+        // Info container
+        const infoDiv = document.createElement('div');
+        infoDiv.className = 'film-info';
+
+        // Title
+        const title = document.createElement('h3');
+        title.className = 'film-title';
+        title.textContent = film.title;
+        infoDiv.appendChild(title);
+
+        // Meta (year + trailer link)
+        const metaDiv = document.createElement('div');
+        metaDiv.className = 'film-meta';
+
+        const yearSpan = document.createElement('span');
+        yearSpan.className = 'film-year';
+        yearSpan.textContent = film.year;
+        metaDiv.appendChild(yearSpan);
+
+        if (film.trailer) {
+            const trailerLink = document.createElement('a');
+            trailerLink.href = film.trailer;
+            trailerLink.target = '_blank';
+            trailerLink.rel = 'noopener';
+            trailerLink.className = 'film-trailer-link';
+            trailerLink.innerHTML = '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg> Watch Trailer';
+            metaDiv.appendChild(trailerLink);
+        }
+
+        infoDiv.appendChild(metaDiv);
+
+        // Trailer thumbnail
+        if (trailerThumbnail) {
+            const thumbnailDiv = document.createElement('div');
+            thumbnailDiv.className = 'film-thumbnail';
+
+            const thumbImg = document.createElement('img');
+            thumbImg.src = trailerThumbnail;
+            thumbImg.alt = `${film.title} trailer thumbnail`;
+            thumbImg.loading = 'lazy';
+            thumbnailDiv.appendChild(thumbImg);
+
+            const overlay = document.createElement('div');
+            overlay.className = 'thumbnail-overlay';
+            overlay.innerHTML = '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>';
+            thumbnailDiv.appendChild(overlay);
+
+            thumbnailDiv.addEventListener('click', () => window.open(film.trailer, '_blank'));
+
+            infoDiv.appendChild(thumbnailDiv);
+        }
+
+        // Description
+        const desc = document.createElement('p');
+        desc.className = 'film-description';
+        desc.textContent = film.description;
+        infoDiv.appendChild(desc);
+
+        // Streaming links
+        if (film.streaming.length > 0) {
+            const linksDiv = document.createElement('div');
+            linksDiv.className = 'film-links';
+
+            film.streaming.forEach(link => {
+                if (link.disabled) {
+                    const span = document.createElement('span');
+                    span.className = 'film-link film-link-disabled';
+                    span.textContent = link.name;
+                    linksDiv.appendChild(span);
+                } else {
+                    const a = document.createElement('a');
+                    a.href = link.url;
+                    a.target = '_blank';
+                    a.rel = 'noopener';
+                    a.className = 'film-link';
+                    a.textContent = link.name;
+                    linksDiv.appendChild(a);
                 }
-            </div>
-            <div class="film-info">
-                <h3 class="film-title">${film.title}</h3>
-                <div class="film-meta">
-                    <span class="film-year">${film.year}</span>
-                    ${film.trailer ? `
-                        <a href="${film.trailer}" target="_blank" rel="noopener" class="film-trailer-link">
-                            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
-                            Watch Trailer
-                        </a>
-                    ` : ''}
-                </div>
+            });
 
-                ${trailerThumbnail ? `
-                    <div class="film-thumbnail" onclick="window.open('${film.trailer}', '_blank')">
-                        <img src="${trailerThumbnail}" alt="${film.title} trailer thumbnail" loading="lazy">
-                        <div class="thumbnail-overlay">
-                            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
-                        </div>
-                    </div>
-                ` : ''}
+            infoDiv.appendChild(linksDiv);
+        }
 
-                <p class="film-description">${film.description}</p>
+        // IMDb link
+        const imdbDiv = document.createElement('div');
+        imdbDiv.className = 'film-imdb';
 
-                ${film.streaming.length > 0 ? `
-                    <div class="film-links">
-                        ${film.streaming.map(link => `
-                            ${link.disabled
-                                ? `<span class="film-link film-link-disabled">${link.name}</span>`
-                                : `<a href="${link.url}" target="_blank" rel="noopener" class="film-link">${link.name}</a>`
-                            }
-                        `).join('')}
-                    </div>
-                ` : ''}
+        const imdbLink = document.createElement('a');
+        imdbLink.href = film.imdb;
+        imdbLink.target = '_blank';
+        imdbLink.rel = 'noopener';
+        imdbLink.className = 'imdb-link';
+        imdbLink.innerHTML = '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zM8.5 15H6.75V9h1.75v6zm4.25 0h-1.75V9h1.75v6zm4.25 0h-1.75V9h1.75v6z"/></svg> View on IMDb';
 
-                <div class="film-imdb">
-                    <a href="${film.imdb}" target="_blank" rel="noopener" class="imdb-link">
-                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zM8.5 15H6.75V9h1.75v6zm4.25 0h-1.75V9h1.75v6zm4.25 0h-1.75V9h1.75v6z"/></svg>
-                        View on IMDb
-                    </a>
-                </div>
-            </div>
-        </article>
-    `}).join('');
+        imdbDiv.appendChild(imdbLink);
+        infoDiv.appendChild(imdbDiv);
+
+        article.appendChild(posterDiv);
+        article.appendChild(infoDiv);
+        filmsGrid.appendChild(article);
+    });
 }
 
 // ============================================
@@ -127,13 +204,28 @@ function renderNews() {
 
     if (!newsGrid) return;
 
-    newsGrid.innerHTML = news.map(item => `
-        <article class="news-card">
-            <p class="news-date">${item.date}</p>
-            <h3 class="news-title">${item.title}</h3>
-            <p class="news-content">${item.content}</p>
-        </article>
-    `).join('');
+    news.forEach(item => {
+        // Create news card using DOM methods (XSS prevention)
+        const article = document.createElement('article');
+        article.className = 'news-card';
+
+        const date = document.createElement('p');
+        date.className = 'news-date';
+        date.textContent = item.date;
+        article.appendChild(date);
+
+        const title = document.createElement('h3');
+        title.className = 'news-title';
+        title.textContent = item.title;
+        article.appendChild(title);
+
+        const content = document.createElement('p');
+        content.className = 'news-content';
+        content.textContent = item.content;
+        article.appendChild(content);
+
+        newsGrid.appendChild(article);
+    });
 }
 
 // ============================================

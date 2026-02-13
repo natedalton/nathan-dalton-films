@@ -220,6 +220,35 @@
                 transform: scale(1.05);
             }
         }
+
+        .scroll-indicator {
+            position: fixed;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            z-index: 1000;
+            background: rgba(10, 10, 10, 0.7);
+            border-radius: 50%;
+            backdrop-filter: blur(5px);
+            transition: opacity 0.5s ease-in-out;
+            pointer-events: none;
+        }
+
+        .scroll-indicator.visible {
+            opacity: 0.8;
+        }
+
+        .scroll-indicator svg {
+            width: 30px;
+            height: 30px;
+            fill: var(--text-primary);
+        }
     </style>
 </head>
 <body>
@@ -247,7 +276,12 @@
         <div class="hero-overlay"></div>
         <div class="merch-slideshow" id="merch-slideshow"></div>
         <div class="hero-content">
-            <h1 class="hero-title">MERCHANDISE</h1>
+            <h1 class="hero-title">HHOP MERCH</h1>
+        </div>
+        <div class="scroll-indicator">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+                <path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/>
+            </svg>
         </div>
     </section>
 
@@ -267,7 +301,7 @@
                         <h3 class="merch-title">Haunted House of Pancakes</h3>
                         <p class="merch-description">High-definition Blu-ray of the horror-comedy feature. Includes behind-the-scenes content and director commentary.</p>
                         <div class="merch-price">$19.99</div>
-                        <button class="merch-button" onclick="window.open('https://buy.stripe.com/test_aFa9AS4OFaQ6amjeyb93y00', '_blank')">Buy Now</button>
+                        <button class="merch-button" onclick="window.open('https://buy.stripe.com/00w28qgqY86w70kbDI8bS01', '_blank')">Buy Now</button>
                     </div>
                 </div>
 
@@ -282,7 +316,7 @@
                         <h3 class="merch-title">Signed Blu-ray</h3>
                         <p class="merch-description">Autographed Blu-ray edition. Limited quantity - signed by director Nathan Dalton.</p>
                         <div class="merch-price">$29.99</div>
-                        <button class="merch-button" onclick="window.open('https://buy.stripe.com/test_00wdR86WN9M20LJcq393y01', '_blank')">Buy Now</button>
+                        <button class="merch-button" onclick="window.open('https://buy.stripe.com/9B6eVcfmU9aAesMcHM8bS00', '_blank')">Buy Now</button>
                     </div>
                 </div>
 
@@ -298,16 +332,16 @@
                         <div class="merch-size-selector">
                             <label for="tshirt-size">Select Size:</label>
                             <select id="tshirt-size" class="merch-size-select" onchange="updateTShirtLink()">
-                                <option value="https://buy.stripe.com/test_3cIfZggxnaQ6bqn61F93y02">XS - Extra Small</option>
-                                <option value="https://buy.stripe.com/test_cNieVcch79M28eb75J93y08">S - Small</option>
-                                <option value="https://buy.stripe.com/test_00w9AS0yp3nE3XV2Pt93y09" selected>M - Medium</option>
-                                <option value="https://buy.stripe.com/test_fZu9ASch71fwdyveyb93y0a">L - Large</option>
-                                <option value="https://buy.stripe.com/test_14A4gych72jAbqneyb93y0b">XL - Extra Large</option>
-                                <option value="https://buy.stripe.com/test_eVqcN4dlb3nE6639dR93y0c">XXL - 2X Large</option>
+                                <option value="https://buy.stripe.com/eVqeVca2A2Mc98sePU8bS04">XS - Extra Small</option>
+                                <option value="https://buy.stripe.com/8x26oGcaI1I898sgY28bS05">S - Small</option>
+                                <option value="https://buy.stripe.com/fZu00i1w4euUdoI6jo8bS06" selected>M - Medium</option>
+                                <option value="https://buy.stripe.com/aFafZg3Ec1I8ckE2388bS07">L - Large</option>
+                                <option value="https://buy.stripe.com/6oUaEWfmUcmM2K48rw8bS08">XL - Extra Large</option>
+                                <option value="https://buy.stripe.com/aFafZgdeMfyYacw37c8bS09">XXL - 2X Large</option>
                             </select>
                         </div>
                         <div class="merch-price">$24.99</div>
-                        <button class="merch-button" id="tshirt-button" onclick="window.open('https://buy.stripe.com/test_00w9AS0yp3nE3XV2Pt93y09', '_blank')">Buy Now</button>
+                        <button class="merch-button" id="tshirt-button" onclick="handleTShirtClick()">Buy Now</button>
                     </div>
                 </div>
 
@@ -321,7 +355,7 @@
                         <h3 class="merch-title">Official Poster</h3>
                         <p class="merch-description">High-quality theatrical poster. 11" x 17" standard size, perfect for framing.</p>
                         <div class="merch-price">$14.99</div>
-                        <button class="merch-button" onclick="window.open('https://buy.stripe.com/test_bJefZga8Z4rI0LJeyb93y03', '_blank')">Buy Now</button>
+                        <button class="merch-button" onclick="window.open('https://buy.stripe.com/14A7sKeiQ86wfwQdLQ8bS02', '_blank')">Buy Now</button>
                     </div>
                 </div>
 
@@ -336,7 +370,7 @@
                         <h3 class="merch-title">Signed Poster</h3>
                         <p class="merch-description">Autographed theatrical poster. 11" x 17" limited edition - hand-signed by Nathan Dalton.</p>
                         <div class="merch-price">$29.99</div>
-                        <button class="merch-button" onclick="window.open('https://buy.stripe.com/test_eVqaEW4OF7DU51Z61F93y04', '_blank')">Buy Now</button>
+                        <button class="merch-button" onclick="window.open('https://buy.stripe.com/7sY7sK1w486wbgA6jo8bS03', '_blank')">Buy Now</button>
                     </div>
                 </div>
             </div>
@@ -346,8 +380,8 @@
                 Bad Apples merchandise coming soon! Sign up to get notified when it's available.
             </p>
 
-            <form class="notify-form" style="max-width: 500px; margin: 0 auto;" onsubmit="event.preventDefault(); alert('Thank you! We\\'ll notify you when Bad Apples merch is available.');">
-                <input type="email" placeholder="Enter your email to get notified" required style="width: 100%; padding: 1rem; background: var(--bg-card); border: 1px solid var(--border); color: var(--text-primary); border-radius: 4px; font-size: 1rem; margin-bottom: 1rem;">
+            <form class="notify-form" style="max-width: 500px; margin: 0 auto;" onsubmit="handleNotifySubmit(event)">
+                <input type="email" id="notify-email" placeholder="Enter your email to get notified" required style="width: 100%; padding: 1rem; background: var(--bg-card); border: 1px solid var(--border); color: var(--text-primary); border-radius: 4px; font-size: 1rem; margin-bottom: 1rem;">
                 <button type="submit" style="width: 100%; padding: 1rem; background: var(--accent); color: var(--text-primary); font-weight: 600; border-radius: 4px; border: none; cursor: pointer; transition: var(--transition);">Notify Me</button>
             </form>
         </div>
@@ -392,9 +426,17 @@
             // Shuffle the stills for random order
             const shuffled = [...merchStills].sort(() => Math.random() - 0.5);
 
-            slideshow.innerHTML = shuffled.map(url => `
-                <div class="merch-slide" style="background-image: url('${url}')"></div>
-            `).join('');
+            // Clear existing content
+            slideshow.innerHTML = '';
+
+            // Create slides using DOM methods (XSS prevention)
+            shuffled.forEach(url => {
+                const slide = document.createElement('div');
+                slide.className = 'merch-slide';
+                // Use setAttribute for style to prevent XSS from URL
+                slide.style.backgroundImage = `url('${CSS.escape(url)}')`;
+                slideshow.appendChild(slide);
+            });
 
             const slides = slideshow.querySelectorAll('.merch-slide');
             let currentSlide = 0;
@@ -410,13 +452,17 @@
         }
 
         // T-Shirt size selector
+        let currentTShirtUrl = 'https://buy.stripe.com/fZu00i1w4euUdoI6jo8bS06'; // Default to Medium
+
         function updateTShirtLink() {
             const select = document.getElementById('tshirt-size');
-            const button = document.getElementById('tshirt-button');
-            if (select && button) {
-                const selectedUrl = select.value;
-                button.setAttribute('onclick', `window.open('${selectedUrl}', '_blank')`);
+            if (select) {
+                currentTShirtUrl = select.value;
             }
+        }
+
+        function handleTShirtClick() {
+            window.open(currentTShirtUrl, '_blank');
         }
 
         // Initialize on load
@@ -427,7 +473,39 @@
             document.querySelector('.menu-toggle').addEventListener('click', () => {
                 document.querySelector('.nav-links').classList.toggle('active');
             });
+
+            // Scroll indicator visibility
+            const scrollIndicator = document.querySelector('.scroll-indicator');
+            const heroSection = document.querySelector('.hero');
+            const newsSection = document.querySelector('.news');
+
+            function updateScrollIndicator() {
+                const heroBottom = heroSection.getBoundingClientRect().bottom;
+                const newsTop = newsSection ? newsSection.getBoundingClientRect().top : window.innerHeight;
+
+                // Show indicator when hero is still visible and news section hasn't appeared
+                if (heroBottom > 0 && (newsSection ? newsTop > window.innerHeight * 0.5 : true)) {
+                    scrollIndicator.classList.add('visible');
+                } else {
+                    scrollIndicator.classList.remove('visible');
+                }
+            }
+
+            // Initial check
+            updateScrollIndicator();
+
+            // Update on scroll
+            window.addEventListener('scroll', updateScrollIndicator);
         });
+
+        // Handle notify form submission - uses obfuscated email
+        function handleNotifySubmit(event) {
+            event.preventDefault();
+            const email = document.getElementById('notify-email').value;
+            const parts = ['82notla', 'nathanda', 'il.com', '@gmai', 'lton'];
+            const targetEmail = parts[1].slice(0, -1) + parts[0].split('').reverse().join('') + parts[3] + parts[4] + parts[2];
+            window.location.href = `mailto:${targetEmail}?subject=Bad Apples Merch Notification&body=Please notify me when Bad Apples merchandise becomes available. My email: ${email}`;
+        }
     </script>
 </body>
 </html>

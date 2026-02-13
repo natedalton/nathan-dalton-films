@@ -242,10 +242,18 @@ button {
 
 .hero-socials {
     display: flex;
-    gap: 1.5rem;
     justify-content: center;
     align-items: center;
+    gap: 1.5rem;
     flex-wrap: wrap;
+}
+
+.hero-socials > *:first-child {
+    margin-right: 3rem;
+}
+
+.hero-socials > *:last-child {
+    margin-left: 3rem;
 }
 
 .social-link {
@@ -702,6 +710,16 @@ section {
 
     .hero-title {
         letter-spacing: 4px;
+    }
+
+    .hero-socials {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .hero-socials > *:first-child,
+    .hero-socials > *:last-child {
+        margin: 0;
     }
 
     .films-grid {

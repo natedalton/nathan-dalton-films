@@ -39,6 +39,7 @@
             <div class="hero-socials">
                 <a href="https://www.imdb.com/name/nm6811776/" target="_blank" rel="noopener" class="social-link">IMDb</a>
                 <a href="#films" class="cta-button">View Films</a>
+                <a href="merch.html" class="social-link">Merch</a>
             </div>
         </div>
     </section>
@@ -69,7 +70,7 @@
             <h2 class="section-title">Get In Touch</h2>
             <p class="contact-text">For inquiries, collaborations, or press</p>
             <div class="social-links">
-                <a href="mailto:nathandalton82@gmail.com" class="social-icon" aria-label="Email">
+                <a id="email-link" class="social-icon" aria-label="Email">
                     <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
                 </a>
                 <a href="https://www.imdb.com/name/nm6811776/" target="_blank" rel="noopener" class="social-icon" aria-label="IMDb">
@@ -98,5 +99,13 @@
 
     <script src="js/data.js"></script>
     <script src="js/main.js"></script>
+    <script>
+        // Obfuscated email for security - split and decoded to prevent scraping
+        (function() {
+            const parts = ['82notla', 'nathanda', 'il.com', '@gmai', 'lton'];
+            const email = parts[1].slice(0, -1) + parts[0].split('').reverse().join('') + parts[3] + parts[4] + parts[2];
+            document.getElementById('email-link').href = 'mailto:' + email;
+        })();
+    </script>
 </body>
 </html>
