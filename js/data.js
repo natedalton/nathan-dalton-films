@@ -32,7 +32,7 @@ const films = [
         title: "Bad Apples",
         year: "2025",
         trailer: "https://youtu.be/qo6hr_0VY-c",
-        description: "A bombastic satire of the modern classroom. Director Steven Morris helms this comedic take on education, with Nathan Dalton as writer and executive producer. Now available worldwide.",
+        description: "Director Steven Morris helms this thriller, about a young sociopath who begins to show her true colors once her foster parents adopt another kid to steal her spotlight, with Nathan Dalton as writer and executive producer. Now available worldwide.",
         poster: "https://m.media-amazon.com/images/M/MV5BY2QwY2I3MTQtY2Q4Yi00ZjZmLWE4MGUtNWQ4ZDM1YTY3ODBmXkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg",
         streaming: [
             { name: "Rent on Amazon", url: "https://www.amazon.com/gp/video/detail/B0GKRBVSH6/ref=atv_dp_share_cu_r" }
