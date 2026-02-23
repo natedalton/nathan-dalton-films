@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Nathan Dalton - Official Merchandise. Blu-rays, shirts, posters, and more.">
-    <title>Merch | Nathan Dalton</title>
+    <meta name="description" content="Bad Apples - Official Merchandise. Blu-ray and more coming soon.">
+    <title>Bad Apples Merch | Nathan Dalton</title>
     <link rel="stylesheet" href="css/style.css">
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     <style>
@@ -100,34 +100,6 @@
             flex: 1;
         }
 
-        .merch-size-selector {
-            margin-bottom: 1rem;
-        }
-
-        .merch-size-selector label {
-            display: block;
-            color: var(--text-secondary);
-            font-size: 0.85rem;
-            font-weight: 500;
-            margin-bottom: 0.5rem;
-        }
-
-        .merch-size-select {
-            width: 100%;
-            padding: 0.75rem;
-            background: var(--bg-secondary);
-            color: var(--text-primary);
-            border: 1px solid var(--border);
-            border-radius: 4px;
-            font-size: 0.9rem;
-            cursor: pointer;
-        }
-
-        .merch-size-select:focus {
-            outline: none;
-            border-color: var(--accent);
-        }
-
         .merch-price {
             font-size: 1.5rem;
             font-weight: 600;
@@ -156,13 +128,30 @@
             box-shadow: 0 10px 30px rgba(229, 9, 20, 0.3);
         }
 
-        .merh-category {
+        .merch-category {
             color: var(--accent);
             font-size: 0.75rem;
             font-weight: 600;
             letter-spacing: 1px;
             text-transform: uppercase;
             margin-bottom: 0.5rem;
+        }
+
+        .coming-soon {
+            text-align: center;
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 4rem auto 2rem;
+            padding: 2rem;
+            background: var(--bg-card);
+            border-radius: 12px;
+            border: 1px solid var(--border);
+        }
+
+        .coming-soon-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
         }
 
         @media (max-width: 768px) {
@@ -269,8 +258,8 @@
                 <li class="nav-item-dropdown">
                     <span class="dropdown-toggle active">Merch<span class="dropdown-arrow"></span></span>
                     <div class="dropdown-menu">
-                        <a href="merch.html" class="active">Haunted House of Pancakes</a>
-                        <a href="bad-apples-merch.html">Bad Apples</a>
+                        <a href="merch.html">Haunted House of Pancakes</a>
+                        <a href="bad-apples-merch.html" class="active">Bad Apples</a>
                     </div>
                 </li>
             </ul>
@@ -282,7 +271,7 @@
         <div class="hero-overlay"></div>
         <div class="merch-slideshow" id="merch-slideshow"></div>
         <div class="hero-content">
-            <h1 class="hero-title">HHOP MERCH</h1>
+            <h1 class="hero-title">BAD APPLES MERCH</h1>
         </div>
         <div class="scroll-indicator">
             <svg viewBox="0 0 24 24" fill="currentColor">
@@ -294,96 +283,29 @@
     <!-- Merch Section -->
     <section class="news">
         <div class="container">
-            <h2 class="section-title">Haunted House of Pancakes</h2>
+            <h2 class="section-title">Bad Apples</h2>
 
             <div class="merch-grid">
                 <!-- Blu-ray -->
                 <div class="merch-item">
                     <div class="merch-image">
-                        <img src="assets/images/bluray.png" alt="Haunted House of Pancakes Blu-ray">
+                        <img src="assets/images/bad-apples-bluray.png" alt="Bad Apples Blu-ray">
                     </div>
                     <div class="merch-info">
-                        <span class="merh-category">Blu-ray</span>
-                        <h3 class="merch-title">Haunted House of Pancakes</h3>
-                        <p class="merch-description">High-definition Blu-ray of the horror-comedy feature. Includes behind-the-scenes content and director commentary.</p>
+                        <span class="merch-category">Blu-ray</span>
+                        <h3 class="merch-title">Bad Apples</h3>
+                        <p class="merch-description">High-definition Blu-ray of the thriller about a young sociopath who begins to show her true colors when her foster parents adopt another child. Features include director commentary and behind-the-scenes content.</p>
                         <div class="merch-price">$19.99</div>
-                        <button class="merch-button" onclick="window.open('https://buy.stripe.com/00w28qgqY86w70kbDI8bS01', '_blank')">Buy Now</button>
-                    </div>
-                </div>
-
-                <!-- Signed Blu-ray -->
-                <div class="merch-item">
-                    <div class="merch-image">
-                        <img src="assets/images/bluray.png" alt="Signed Haunted House of Pancakes Blu-ray">
-                        <span class="merch-badge signed">Signed</span>
-                    </div>
-                    <div class="merch-info">
-                        <span class="merh-category">Blu-ray</span>
-                        <h3 class="merch-title">Signed Blu-ray</h3>
-                        <p class="merch-description">Autographed Blu-ray edition. Limited quantity - signed by director Nathan Dalton.</p>
-                        <div class="merch-price">$29.99</div>
-                        <button class="merch-button" onclick="window.open('https://buy.stripe.com/9B6eVcfmU9aAesMcHM8bS00', '_blank')">Buy Now</button>
-                    </div>
-                </div>
-
-                <!-- Shirt -->
-                <div class="merch-item">
-                    <div class="merch-image">
-                        <img src="assets/images/hhop-shirt.jpg" alt="Haunted House of Pancakes T-Shirt">
-                    </div>
-                    <div class="merch-info">
-                        <span class="merh-category">Apparel</span>
-                        <h3 class="merch-title">HHOP T-Shirt</h3>
-                        <p class="merch-description">Official Haunted House of Pancakes t-shirt. Premium cotton, available in multiple sizes.</p>
-                        <div class="merch-size-selector">
-                            <label for="tshirt-size">Select Size:</label>
-                            <select id="tshirt-size" class="merch-size-select" onchange="updateTShirtLink()">
-                                <option value="https://buy.stripe.com/eVqeVca2A2Mc98sePU8bS04">XS - Extra Small</option>
-                                <option value="https://buy.stripe.com/8x26oGcaI1I898sgY28bS05">S - Small</option>
-                                <option value="https://buy.stripe.com/fZu00i1w4euUdoI6jo8bS06" selected>M - Medium</option>
-                                <option value="https://buy.stripe.com/aFafZg3Ec1I8ckE2388bS07">L - Large</option>
-                                <option value="https://buy.stripe.com/6oUaEWfmUcmM2K48rw8bS08">XL - Extra Large</option>
-                                <option value="https://buy.stripe.com/aFafZgdeMfyYacw37c8bS09">XXL - 2X Large</option>
-                            </select>
-                        </div>
-                        <div class="merch-price">$24.99</div>
-                        <button class="merch-button" id="tshirt-button" onclick="handleTShirtClick()">Buy Now</button>
-                    </div>
-                </div>
-
-                <!-- Poster -->
-                <div class="merch-item">
-                    <div class="merch-image">
-                        <img src="https://m.media-amazon.com/images/M/MV5BNTEzMTU4ZDEtZDQ2ZC00MTIyLTkyNjctOTQ4ZGU2NzY1Zjk4XkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg" alt="Haunted House of Pancakes Poster">
-                    </div>
-                    <div class="merch-info">
-                        <span class="merh-category">Poster</span>
-                        <h3 class="merch-title">Official Poster</h3>
-                        <p class="merch-description">High-quality theatrical poster. 11" x 17" standard size, perfect for framing.</p>
-                        <div class="merch-price">$14.99</div>
-                        <button class="merch-button" onclick="window.open('https://buy.stripe.com/14A7sKeiQ86wfwQdLQ8bS02', '_blank')">Buy Now</button>
-                    </div>
-                </div>
-
-                <!-- Signed Poster -->
-                <div class="merch-item">
-                    <div class="merch-image">
-                        <img src="https://m.media-amazon.com/images/M/MV5BNTEzMTU4ZDEtZDQ2ZC00MTIyLTkyNjctOTQ4ZGU2NzY1Zjk4XkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg" alt="Signed Haunted House of Pancakes Poster">
-                        <span class="merch-badge signed">Signed</span>
-                    </div>
-                    <div class="merch-info">
-                        <span class="merh-category">Poster</span>
-                        <h3 class="merch-title">Signed Poster</h3>
-                        <p class="merch-description">Autographed theatrical poster. 11" x 17" limited edition - hand-signed by Nathan Dalton.</p>
-                        <div class="merch-price">$29.99</div>
-                        <button class="merch-button" onclick="window.open('https://buy.stripe.com/7sY7sK1w486wbgA6jo8bS03', '_blank')">Buy Now</button>
+                        <button class="merch-button" onclick="window.open('https://buy.stripe.com/7sY5kCa2A72s0BW6jo8bS0a', '_blank')">Buy Now</button>
                     </div>
                 </div>
             </div>
 
-            <h2 class="section-title" style="margin-top: 6rem;">More Films</h2>
-            <div style="text-align: center; margin-bottom: 2rem;">
-                <a href="bad-apples-merch.html" style="display: inline-block; padding: 1.5rem 3rem; background: var(--accent); color: var(--text-primary); font-weight: 600; font-size: 1.1rem; border-radius: 4px; text-decoration: none; transition: var(--transition); text-transform: uppercase; letter-spacing: 1px;">View Bad Apples Merch</a>
+            <!-- Coming Soon -->
+            <div class="coming-soon">
+                <div class="coming-soon-icon">🎬</div>
+                <h3 style="font-family: var(--font-display); font-size: 1.5rem; margin-bottom: 1rem;">More Merch Coming Soon</h3>
+                <p>Stay tuned for additional Bad Apples merchandise including signed posters, apparel, and collectibles.</p>
             </div>
         </div>
     </section>
@@ -396,28 +318,14 @@
     </footer>
 
     <script>
-        // Merch slideshow initialization
+        // Merch slideshow initialization - Bad Apples poster and stills
         const merchStills = [
-            'assets/images/stills/still_1.jpg',
-            'assets/images/stills/still_2.jpg',
-            'assets/images/stills/still_3.jpg',
-            'assets/images/stills/still_4.jpg',
-            'assets/images/stills/still_5.jpg',
-            'assets/images/stills/still_6.jpg',
-            'assets/images/stills/still_7.jpg',
-            'assets/images/stills/still_8.jpg',
-            'assets/images/stills/still_9.jpg',
-            'assets/images/stills/still_10.jpg',
-            'assets/images/stills/still_11.jpg',
-            'assets/images/stills/still_12.jpg',
-            'assets/images/stills/still_13.jpg',
-            'assets/images/stills/still_14.jpg',
-            'assets/images/stills/still_15.jpg',
-            'assets/images/stills/still_16.jpg',
-            'assets/images/stills/still_17.jpg',
-            'assets/images/stills/still_18.jpg',
-            'assets/images/stills/still_19.jpg',
-            'assets/images/stills/still_20.jpg'
+            'https://m.media-amazon.com/images/M/MV5BY2QwY2I3MTQtY2Q4Yi00ZjZmLWE4MGUtNWQ4ZDM1YTY3ODBmXkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg',
+            'assets/images/bad-apples-stills/still1.jpg',
+            'assets/images/bad-apples-stills/still2.jpg',
+            'assets/images/bad-apples-stills/still3.jpg',
+            'assets/images/bad-apples-stills/still4.jpg',
+            'assets/images/bad-apples-stills/still5.jpg'
         ];
 
         function initMerchSlideshow() {
@@ -450,20 +358,6 @@
 
             slides[0]?.classList.add('active');
             setInterval(nextSlide, 10000);
-        }
-
-        // T-Shirt size selector
-        let currentTShirtUrl = 'https://buy.stripe.com/fZu00i1w4euUdoI6jo8bS06'; // Default to Medium
-
-        function updateTShirtLink() {
-            const select = document.getElementById('tshirt-size');
-            if (select) {
-                currentTShirtUrl = select.value;
-            }
-        }
-
-        function handleTShirtClick() {
-            window.open(currentTShirtUrl, '_blank');
         }
 
         // Initialize on load

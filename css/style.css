@@ -74,6 +74,7 @@ button {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    position: relative;
 }
 
 .logo {
@@ -128,6 +129,90 @@ button {
     height: 2px;
     background: var(--text-primary);
     transition: var(--transition);
+}
+
+/* Dropdown Menu */
+.nav-item-dropdown {
+    position: relative;
+}
+
+.dropdown-toggle {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+}
+
+.dropdown-toggle::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--accent);
+    transition: var(--transition);
+}
+
+.dropdown-toggle:hover::after,
+.nav-item-dropdown.dropdown-active .dropdown-toggle::after {
+    width: 100%;
+}
+
+.dropdown-arrow {
+    width: 0;
+    height: 0;
+    border-left: 4px solid transparent;
+    border-right: 4px solid transparent;
+    border-top: 5px solid currentColor;
+    transition: var(--transition);
+    margin-left: 0.25rem;
+}
+
+.nav-item-dropdown.dropdown-active .dropdown-arrow {
+    transform: rotate(180deg);
+}
+
+.dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    min-width: 200px;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 0.5rem 0;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-5px);
+    transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+    z-index: 1001;
+    pointer-events: none;
+}
+
+.nav-item-dropdown.dropdown-active .dropdown-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(8px);
+    pointer-events: auto;
+}
+
+.dropdown-menu a {
+    display: block;
+    padding: 0.75rem 1.5rem;
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    white-space: nowrap;
+}
+
+.dropdown-menu a:hover {
+    background: var(--bg-secondary);
+    color: var(--text-primary);
+}
+
+.dropdown-menu a::after {
+    display: none;
 }
 
 /* ===== HERO SECTION ===== */
@@ -292,6 +377,70 @@ button {
     background: var(--accent-hover);
     transform: translateY(-2px);
     box-shadow: 0 10px 30px rgba(229, 9, 20, 0.3);
+}
+
+/* Hero Merch Dropdown */
+.hero-merch-dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.merch-dropdown-toggle {
+    padding: 0.875rem 2rem;
+    background: transparent;
+    color: var(--text-primary);
+    font-weight: 500;
+    letter-spacing: 1px;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    transition: var(--transition);
+    cursor: pointer;
+    font-family: var(--font-body);
+}
+
+.merch-dropdown-toggle:hover {
+    background: var(--bg-card);
+    border-color: var(--accent);
+}
+
+.hero-dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-5px);
+    min-width: 200px;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 0.5rem 0;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+    z-index: 100;
+    pointer-events: none;
+    margin-top: 0.5rem;
+}
+
+.hero-merch-dropdown.dropdown-active .hero-dropdown-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(0);
+    pointer-events: auto;
+}
+
+.hero-dropdown-menu a {
+    display: block;
+    padding: 0.75rem 1.5rem;
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    text-align: center;
+    transition: var(--transition);
+}
+
+.hero-dropdown-menu a:hover {
+    background: var(--bg-secondary);
+    color: var(--text-primary);
 }
 
 /* ===== SECTIONS ===== */
@@ -706,6 +855,40 @@ section {
     .nav-links a {
         display: block;
         padding: 1rem;
+    }
+
+    /* Mobile dropdown styles */
+    .dropdown-menu {
+        position: static;
+        opacity: 1;
+        visibility: visible;
+        transform: none;
+        border: none;
+        border-radius: 0;
+        background: var(--bg-card);
+        box-shadow: none;
+        padding: 0;
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.3s ease;
+        pointer-events: auto;
+    }
+
+    .dropdown-menu.dropdown-active {
+        max-height: 200px;
+    }
+
+    .dropdown-arrow {
+        display: inline-block;
+    }
+
+    .nav-item-dropdown.dropdown-active .dropdown-arrow {
+        transform: rotate(180deg);
+    }
+
+    .dropdown-menu a {
+        padding: 0.75rem 1rem 0.75rem 2rem;
+        font-size: 0.85rem;
     }
 
     .hero-title {

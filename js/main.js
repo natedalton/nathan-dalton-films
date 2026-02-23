@@ -229,7 +229,7 @@ function renderNews() {
 }
 
 // ============================================
-// MOBILE MENU TOGGLE
+// MOBILE MENU TOGGLE & DROPDOWN
 // ============================================
 function setupMobileMenu() {
     const menuToggle = document.querySelector('.menu-toggle');
@@ -247,6 +247,58 @@ function setupMobileMenu() {
             navLinks.classList.remove('active');
         });
     });
+
+    // Nav dropdown toggle (works on both desktop and mobile)
+    const dropdownToggle = document.querySelector('.dropdown-toggle');
+    const dropdownMenu = document.querySelector('.dropdown-menu');
+    const navItemDropdown = document.querySelector('.nav-item-dropdown');
+
+    if (dropdownToggle && dropdownMenu && navItemDropdown) {
+        dropdownToggle.addEventListener('click', (e) => {
+            e.preventDefault();
+            navItemDropdown.classList.toggle('dropdown-active');
+        });
+
+        // Close dropdown when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!navItemDropdown.contains(e.target)) {
+                navItemDropdown.classList.remove('dropdown-active');
+            }
+        });
+
+        // Close dropdown when clicking a dropdown link
+        dropdownMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                navItemDropdown.classList.remove('dropdown-active');
+            });
+        });
+    }
+
+    // Hero merch dropdown toggle
+    const heroMerchDropdown = document.querySelector('.hero-merch-dropdown');
+    const heroMerchToggle = document.querySelector('.merch-dropdown-toggle');
+    const heroDropdownMenu = document.querySelector('.hero-dropdown-menu');
+
+    if (heroMerchDropdown && heroMerchToggle && heroDropdownMenu) {
+        heroMerchToggle.addEventListener('click', (e) => {
+            e.preventDefault();
+            heroMerchDropdown.classList.toggle('dropdown-active');
+        });
+
+        // Close dropdown when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!heroMerchDropdown.contains(e.target)) {
+                heroMerchDropdown.classList.remove('dropdown-active');
+            }
+        });
+
+        // Close dropdown when clicking a dropdown link
+        heroDropdownMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                heroMerchDropdown.classList.remove('dropdown-active');
+            });
+        });
+    }
 }
 
 // ============================================
